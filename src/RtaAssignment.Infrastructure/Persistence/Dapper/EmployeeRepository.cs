@@ -39,17 +39,17 @@ namespace RtaAssignment.Infrastructure.Persistence.Dapper
             SELECT 
                 id, name, nationality, designation, mobileNo, email, passportExpireDate, 
             passportNo, typeId 
-            FROM public.employees WHERE id = @pId;
+            FROM public.employees WHERE id = @id;
                 
             SELECT et.id, et.name FROM public.employee_types AS et 
-                INNER JOIN public.employees AS e ON et.Id = e.type_id WHERE e.Id = @eId;
+                INNER JOIN public.employees AS e ON et.Id = e.typeId WHERE e.Id = @id;
                 
             SELECT p.id, p.url, p.public_id AS publicId FROM public.employee_photos As p 
-                WHERE p.employee_id = @pId;";
+                WHERE p.employee_id = @id;";
 
             using var con = await ConnectionFactory.DbConnection();
 
-            var result = await con.QueryMultipleAsync(query, new {mId = id});
+            var result = await con.QueryMultipleAsync(query, new {id = id});
             var employee = (await result.ReadAsync<Employee>()).FirstOrDefault();
 
             if (employee == null) return null;

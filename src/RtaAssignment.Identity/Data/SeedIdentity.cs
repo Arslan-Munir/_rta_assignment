@@ -28,7 +28,6 @@ namespace RtaAssignment.Identity.Data
         public static async Task AddSuperAdminUsers(UserManager<AppUser> userManager,
             IEnumerable<SuperAdminToRegisterDto> users)
         {
-            // AssignAdminRole(users);
             var availableUsers = await userManager.Users.ToListAsync();
 
             foreach (var user in users.Where(user => !availableUsers.Any(x => x.UserName.Equals(user.Username))))
@@ -42,14 +41,6 @@ namespace RtaAssignment.Identity.Data
 
                 await userManager.CreateAsync(appUser, user.Password);
                 await userManager.AddToRoleAsync(appUser, Roles.SuperAdmin);
-            }
-        }
-
-        private static void AssignAdminRole(IEnumerable<SuperAdminToRegisterDto> users)
-        {
-            foreach (var user in users)
-            {
-                // user.Role = Roles.SuperAdmin;
             }
         }
     }
