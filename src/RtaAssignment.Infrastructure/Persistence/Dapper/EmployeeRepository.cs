@@ -64,7 +64,7 @@ namespace RtaAssignment.Infrastructure.Persistence.Dapper
         {
             var query = $@"SELECT COUNT(*) OVER() AS total, e.id, e.name, e.nationality,
                 e.designation, e.mobileNo, e.email, 
-                e.passportExpireDate, e.passportNo
+                e.passportNo, e.passportExpireDate
                 FROM public.employees AS e
                 ORDER BY id desc LIMIT @itemsPerPage OFFSET (@currentPage - 1) * @itemsPerPage;";
             
@@ -113,8 +113,7 @@ namespace RtaAssignment.Infrastructure.Persistence.Dapper
             var totalItems = (uint) data.First().total;
             
             var employees = data.Select(e => new EmployeeViewToReturnDto
-            (e.id, e.name, e.mobileNo, e.email, e.designation,
-                e.passportNo,  e.nationality, e.photoUrl, e.passportExpireDate)).ToList();
+            (e.id, e.name, e.nationality, e.designation, e.mobileno, e.email, e.passportno, e.passportexpiredate)).ToList();
             
             return (totalItems, employees);
         }

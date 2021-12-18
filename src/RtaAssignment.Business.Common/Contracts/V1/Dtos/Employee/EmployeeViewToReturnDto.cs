@@ -14,18 +14,17 @@ namespace RtaAssignment.Business.Common.Contracts.V1.Dtos.Employee
         public int PassportNo { get; set; }
         public DateTime PassportExpireDate { get; set; }
         
-        public EmployeeViewToReturnDto(int id, string name, string mobileNo, string email,
-            string designation, int passportNo, string nationality, string photoUrl, DateTime passportExpireDate)
+        public EmployeeViewToReturnDto(int id, string name, string nationality, string designation, string mobileNo, string email,
+             int passportNo, DateTime passportExpireDate)
         {
             Id = id;
             Name = name;
+            Email = email;
             MobileNo = mobileNo;
-            Designation = designation;
             PassportNo = passportNo;
+            Designation = designation;
             Nationality = nationality;
             PassportExpireDate = passportExpireDate;
-            Email = email;
-            PhotoUrl = photoUrl;
         }
     }
 }
