@@ -12,7 +12,7 @@ namespace RtaAssignment.Business.Common.Contracts.V1.Dtos.Employee
         public string Designation { get; set; }
         public string Nationality { get; set; }
         public int PassportNo { get; set; }
-        public DateTime PassportExpireDate { get; set; }
+        public string PassportExpireDate { get; set; }
         
         public EmployeeViewToReturnDto(int id, string name, string nationality, string designation, string mobileNo, string email,
              int passportNo, DateTime passportExpireDate)
@@ -24,7 +24,7 @@ namespace RtaAssignment.Business.Common.Contracts.V1.Dtos.Employee
             PassportNo = passportNo;
             Designation = designation;
             Nationality = nationality;
-            PassportExpireDate = passportExpireDate;
+            PassportExpireDate = passportExpireDate.ToLongDateString();
         }
     }
 }
