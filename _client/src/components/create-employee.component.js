@@ -3,7 +3,8 @@ import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
+import Api from "../configs/Api";
+import employeeService from "../services/employee.service";
 
 const required = (value) => {
   if (!value) {
@@ -18,17 +19,31 @@ const required = (value) => {
 export default function CreateEmployee() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [nationality, setNationality] = useState("");
+  const [designation, setDesignation] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [email, setEmail] = useState("");
+  const [passportNo, setPassportNo] = useState("");
+  const [passportExpireDate, setPassportExpireDate] = useState("");
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  function createEmployee(e) {
-    e.preventDefault();
+  async function createEmployee(e) {
+    let res = await employeeService.create({
+      name: name,
+      nationality: nationality,
+      typeId: 1,
+      designation: designation,
+      mobileNo: mobileNo,
+      email: email,
+      passportNo: Number(passportNo),
+      passportExpireDate: passportExpireDate,
+    });
 
-    console.log(username);
-    console.log(password);
+    setShow(false);
   }
 
   return (
@@ -44,31 +59,87 @@ export default function CreateEmployee() {
         <Modal.Body>
           <Form onSubmit={createEmployee}>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="name">Name</label>
               <Input
                 type="text"
                 className="form-control"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 validations={[required]}
               />
-              <small className="text-muted">
-                Registered user: arslan-munir
-              </small>
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Nationality</label>
               <Input
-                type="password"
+                type="text"
                 className="form-control"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="nationality"
+                value={nationality}
+                onChange={(e) => setNationality(e.target.value)}
                 validations={[required]}
               />
-              <small className="text-muted">Password: fakePass-123</small>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Designation</label>
+              <Input
+                type="text"
+                className="form-control"
+                name="nationality"
+                value={designation}
+                onChange={(e) => setDesignation(e.target.value)}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Mobile No</label>
+              <Input
+                type="text"
+                className="form-control"
+                name="mobileNo"
+                value={mobileNo}
+                onChange={(e) => setMobileNo(e.target.value)}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Email</label>
+              <Input
+                type="email"
+                className="form-control"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Passport No</label>
+              <Input
+                type="number"
+                className="form-control"
+                name="passportNo"
+                value={passportNo}
+                onChange={(e) => setPassportNo(e.target.value)}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Passport Expire Date</label>
+              <Input
+                type="date"
+                className="form-control"
+                name="passportExpireDate"
+                value={passportExpireDate}
+                onChange={(e) => setPassportExpireDate(e.target.value)}
+                validations={[required]}
+              />
             </div>
 
             {message && (
@@ -84,7 +155,7 @@ export default function CreateEmployee() {
           <Button variant="danger" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={createEmployee}>
             {!loading && (
               <span className="spinner-border spinner-border-sm"></span>
             )}

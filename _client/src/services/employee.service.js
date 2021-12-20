@@ -6,6 +6,10 @@ class EmployeeService {
   async getAll() {
     return await Api.get("employee/all", { headers: authHeader() });
   }
+
+  async create(data) {
+    return await Api.post("employee", data, { headers: authHeader() });
+  }
 }
 
 export default new EmployeeService();

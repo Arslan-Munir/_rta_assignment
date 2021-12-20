@@ -18,8 +18,6 @@ export default class Employee extends Component {
   async componentDidMount() {
     let res = await employeeService.getAll();
     this.setState({ data: res.data });
-
-    //this.employees = res.data;
   }
 
   async create() {}

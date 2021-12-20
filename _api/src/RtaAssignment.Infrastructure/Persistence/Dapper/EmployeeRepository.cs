@@ -66,7 +66,7 @@ namespace RtaAssignment.Infrastructure.Persistence.Dapper
                 e.designation, e.mobileNo, e.email, 
                 e.passportNo, e.passportExpireDate
                 FROM public.employees AS e
-                ORDER BY id desc LIMIT @itemsPerPage OFFSET (@currentPage - 1) * @itemsPerPage;";
+                ORDER BY id ASC LIMIT @itemsPerPage OFFSET (@currentPage - 1) * @itemsPerPage;";
             
             using var con = await ConnectionFactory.DbConnection();
 
